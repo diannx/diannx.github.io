@@ -1,0 +1,21 @@
+name: Keep Domains Alive
+
+on:
+  schedule:
+    - cron: '0 */8 * * *'  # 每 8 小时触发一次（UTC 0:00, 8:00, 16:00）
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Random delay 0-4 hours
+        run: sleep $((RANDOM % 14400))  # 随机延迟 0-4 小时
+
+      - name: Ping domains
+        run: |
+          curl -s -o /dev/null https://dx.devs.surf
+          curl -s -o /dev/null https://mei.devs.surf
+          curl -s -o /dev/null https://12.devs.surf
+          curl -s -o /dev/null https://21.devs.surf
+          echo "Pinged at $(date)"
