@@ -2,20 +2,26 @@ name: Keep Domains Alive
 
 on:
   schedule:
-    - cron: '0 */8 * * *'  # 每 8 小时触发一次（UTC 0:00, 8:00, 16:00）
+    - cron: '0 */8 * * *'
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Random delay 0-4 hours
-        run: sleep $((RANDOM % 14400))  # 随机延迟 0-4 小时
+      - name: Random delay
+        run: sleep $((RANDOM % 14400))
 
-      - name: Ping domains
+      - name: Ping all domains
         run: |
+          # devs.surf 域名
           curl -s -o /dev/null https://dx.devs.surf
           curl -s -o /dev/null https://mei.devs.surf
           curl -s -o /dev/null https://12.devs.surf
-          curl -s -o /dev/null https://21.devs.surf
-          echo "Pinged at $(date)"
+          curl -s -o /dev/null https://21.devs.surf          
+          # lovie.me 域名（注册后填）
+          curl -s -o /dev/null https://113.lovie.me
+          curl -s -o /dev/null https://tou.lovie.me
+          curl -s -o /dev/null https://ban.lovie.me
+          
+          echo "All domains pinged at $(date)"
